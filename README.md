@@ -33,13 +33,12 @@
 
 👤 **Ibrahim E.Gad**
 
-* Website: http://ibrahimgad.com
-* Github: [@eibrahim995](https://github.com/eibrahim995)
+* Github: [@eibrahim95](https://github.com/eibrahim95)
 * LinkedIn: [@eibrahim95](https://linkedin.com/in/eibrahim95)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/eibrahim995/discord-voice-messages/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/eibrahim95/discord-voice-messages/issues).
 
 ## Show your support
 
@@ -47,6 +46,6 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2022 [Ibrahim E.Gad](https://github.com/eibrahim995). This project is [Public domain](https://creativecommons.org/share-your-work/public-domain/) licensed.
+Copyright © 2024 [Ibrahim E.Gad](https://github.com/eibrahim95). This project is [Public domain](https://creativecommons.org/share-your-work/public-domain/) licensed.
 
 ***
