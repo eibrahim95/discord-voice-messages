@@ -9,13 +9,31 @@ const getMedia = (mediaFile) => {
   }
   return mediaFile;
 }
+async function resampleAudioBuffer(audioBuffer, targetSampleRate = 44100) {
+  if (audioBuffer.sampleRate === targetSampleRate) {
+    return audioBuffer;
+  }
+
+  const offlineContext = new OfflineAudioContext(
+    audioBuffer.numberOfChannels,
+    Math.ceil(audioBuffer.duration * targetSampleRate),
+    targetSampleRate
+  );
+
+  const bufferSource = offlineContext.createBufferSource();
+  bufferSource.buffer = audioBuffer;
+  bufferSource.connect(offlineContext.destination);
+  bufferSource.start(0);
+
+  return await offlineContext.startRendering();
+}
 const App = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [stopRecording, setStopRecording] = useState(() => () => {})
 
   const  download = (blob) => {
     const time = new Date().toISOString().replace(/T/, " ").replace(/\..+/, "").replace(/ /, "_");
-    let file = new File([blob], `Record_${time}.wav`,{type:"audio/wav", lastModified:new Date().getTime()});
+    let file = new File([blob], `Record_${time}.mp3`, {type: "audio/mp3", lastModified: new Date().getTime()});
     let upload_input = document.getElementsByClassName("file-input")[0];
     let container = new DataTransfer();
     container.items.add(file);
@@ -43,10 +61,10 @@ const App = () => {
       };
       setStopRecording(() => {
         return () => {
-        mediaRecorder.stop();
-        stream.getTracks()
-            .forEach( track => track.stop() );
-      }})
+          mediaRecorder.stop();
+          stream.getTracks()
+              .forEach( track => track.stop() );
+        }})
       mediaRecorder.start(1000);
       mediaRecorder.onstop = () => {
         const blob = new Blob(
@@ -56,8 +74,9 @@ const App = () => {
         const fileReader = new FileReader()
         fileReader.onloadend = () => {
           const arrayBuffer = fileReader.result;
-          audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
-            audioEncoder(audioBuffer, "WAV", () => {}, download);
+          audioContext.decodeAudioData(arrayBuffer, async (audioBuffer) => {
+              const resampledBuffer = await resampleAudioBuffer(audioBuffer, 44100);
+              audioEncoder(resampledBuffer, 32, () => {}, download);
           })
         }
         fileReader.readAsArrayBuffer(blob);
@@ -75,11 +94,11 @@ const App = () => {
     }
   }
   return (
-    <div className="Mic-Container">
+      <div className="Mic-Container">
       <span className="Miv-Btn" onClick={toggleRecording}>
         <img className={"Mic-Icon" + (isRecording ? " Mic-Icon-Active" : "")} src={getMedia(mic)}/>
       </span>
-    </div>
+      </div>
   );
 }
 
