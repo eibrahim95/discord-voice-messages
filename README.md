@@ -2,7 +2,7 @@
 
 <h1 align="center">Welcome to Discord Voice Messages 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.2.1-blue.svg?cacheSeconds=2592000" />
   <a href="https://creativecommons.org/share-your-work/public-domain/" target="_blank">
     <img alt="License: Public domain" src="https://img.shields.io/badge/License-Public domain-yellow.svg" />
   </a>
